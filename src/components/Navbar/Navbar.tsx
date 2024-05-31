@@ -1,7 +1,7 @@
 import {
     AreaChartOutlined,
     FileOutlined,
-    HomeOutlined,
+    EditOutlined,
     // TeamOutlined,
     ScheduleOutlined,
     LogoutOutlined,
@@ -16,15 +16,15 @@ const { Sider } = Layout;
 
 const items = [
     {
-        key: "home",
-        icon: <HomeOutlined />,
-        label: "Trang chủ ",
-        link: "/",
-    },
-    {
         key: "dashboard",
         icon: <AreaChartOutlined />,
         label: "KPI hiện tại ",
+        link: "/",
+    },
+    {
+        key: "home",
+        icon: <EditOutlined />, 
+        label: "Thiết lập KPI ",
         link: "/kpi_present",
     },
     {

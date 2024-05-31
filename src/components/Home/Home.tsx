@@ -135,10 +135,10 @@ export const Home: React.FC = () => {
 
     return (
         <>
-            <h2>Trang chủ</h2>
+            <h2>Thiết lập KPI</h2>
             <Breadcrumb style={{ margin: "16px 0" }} separator=">">
                 <Breadcrumb.Item>KPIHub</Breadcrumb.Item>
-                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item>Thiết lập KPI</Breadcrumb.Item>
             </Breadcrumb>
 
             <h3>Vừa xem</h3>

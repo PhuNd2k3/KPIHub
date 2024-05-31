@@ -26,14 +26,14 @@ const App: React.FC = () => {
         <>
             <Routes>
                 <Route path="/" element={<CommonLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/kpi_present" element={<PresentKPI />}>
+                    <Route path="/kpi_present" element={<Home />} />
+                    <Route path="/" element={<PresentKPI />}>
                         <Route
-                            path="/kpi_present"
+                            path="/"
                             element={<TargetPresentKPI />}
                         />
                         <Route
-                            path="/kpi_present/:targetId"
+                            path="/:targetId"
                             element={<TargetPresentKPIDetail />}
                         />
                     </Route>

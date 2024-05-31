@@ -20,7 +20,7 @@ const columns: TableProps<DataType>["columns"] = [
         render: (text, record) => (
             <Link
                 style={{ color: "#130D59", fontWeight: 400 }}
-                to={"/kpi_present/" + record?.targetId}
+                to={"/" + record?.targetId}
             >
                 {text}
             </Link>

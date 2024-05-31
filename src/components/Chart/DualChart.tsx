@@ -16,16 +16,16 @@ const data = [
         type: "Hiệu suất",
         value: 3,
     },
-    {
-        date: "27/05",
-        type: "Hiệu suất",
-        value: 5,
-    },
-    {
-        date: "28/05",
-        type: "Hiệu suất",
-        value: 4,
-    },
+    // {
+    //     date: "27/05",
+    //     type: "Hiệu suất",
+    //     value: 5,
+    // },
+    // {
+    //     date: "28/05",
+    //     type: "Hiệu suất",
+    //     value: 4,
+    // },
     {
         date: "29/05",
         type: "Hiệu suất",
@@ -39,7 +39,7 @@ const data = [
     {
         date: "31/05",
         type: "Hiệu suất",
-        value: 1,
+        value: 3,
     },
 ];
 

@@ -77,7 +77,7 @@ export const TargetPresentKPIDetail = () => {
         <>
             <Breadcrumb style={{ margin: "16px 0" }} separator=">">
                 <Breadcrumb.Item>
-                    <Link to="/kpi_present">
+                    <Link to="/">
                         <span
                             style={{
                                 fontWeight: 500,
