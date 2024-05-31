@@ -7,12 +7,12 @@
 }
 
 .header__left {
-    width: 218px;
+    width: 180px;
     height: 100%;
     display: flex;
     align-items: center;
     border-right: 1px solid #c0bfbf;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 .header__right {
@@ -35,4 +35,6 @@
 .header__right__account__infor {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }

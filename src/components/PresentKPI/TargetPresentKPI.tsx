@@ -4,6 +4,7 @@ import { getListKpi } from "../../services/kpi";
 import { useEffect, useState } from "react";
 
 interface DataType {
+    criterias: any;
     key: string;
     targetName: string;
     weight: number;
@@ -34,24 +35,32 @@ const columns: TableProps<DataType>["columns"] = [
         ),
     },
     {
-        title: "Tình trạng",
+        title: "Tiến độ",
         key: "targetStatus",
         dataIndex: "targetStatus",
-        render: (_, { targetStatus }) => (
-            <>
-                {
-                    <Tag
-                        color={"red"}
-                        key={targetStatus}
-                        style={{
-                            borderRadius: 10,
-                        }}
-                    >
-                        {targetStatus.toUpperCase()}
-                    </Tag>
-                }
-            </>
-        ),
+        render: (_, record) => {
+            let progress = 0;
+            record?.criterias?.map((item) => {
+                progress +=
+                    Math.round(item.criteriaProgress / item.objective) *
+                    record.weight;
+            });
+            return (
+                <>
+                    {
+                        <Tag
+                            color={"red"}
+                            key={record?.targetStatus}
+                            style={{
+                                borderRadius: 10,
+                            }}
+                        >
+                            {progress}%
+                        </Tag>
+                    }
+                </>
+            );
+        },
     },
 ];
 

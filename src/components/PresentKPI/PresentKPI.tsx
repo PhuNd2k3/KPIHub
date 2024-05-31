@@ -145,11 +145,11 @@ export const PresentKPI = () => {
                                 borderRadius: 15,
                             }}
                         >
-                            <h3>KPI tháng này</h3>
+                            <h3>KPI </h3>
                             <PieChart
                                 data={[
-                                    { type: "KPI tháng này", value: 80 },
-                                    { type: "Chưa xong", value: 20 },
+                                    { type: "Đã hoàn thành", value: 80 },
+                                    { type: "Chưa hoàn thành", value: 20 },
                                 ]}
                             />
                         </Card>
@@ -160,16 +160,16 @@ export const PresentKPI = () => {
                                 borderRadius: 15,
                             }}
                         >
-                            <h3>KPI đạt được từ các mục tiêu</h3>
+                            <h3>Tỷ trọng các mục tiêu</h3>
                             <PieChart
                                 data={[
                                     {
                                         type: "Nghiên cứu",
-                                        value: 25,
+                                        value: 30,
                                     },
                                     {
                                         type: "Giảng dạy",
-                                        value: 25,
+                                        value: 40,
                                     },
                                     {
                                         type: "Phục vụ",

@@ -17,14 +17,14 @@ import { useState } from "react";
 const getListData = (value: Dayjs) => {
     let listData;
     switch (value.date()) {
-        case 17:
+        case 30:
             listData = [
                 { type: "success", content: "1 công việc" },
                 { type: "warning", content: "0 công việc đến hạn" },
             ];
             break;
 
-        case 18:
+        case 31:
             listData = [{ type: "success", content: "" }];
             break;
         default:
@@ -203,7 +203,7 @@ export const Schedule = () => {
                     <Flex
                         vertical
                         style={{
-                            background: "#5EDD46",
+                            background: "#E2E0FA",
                             padding: "5px 10px 10px 10px",
                             borderRadius: 5,
                             fontWeight: 500,

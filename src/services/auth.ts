@@ -10,6 +10,7 @@ const initAccount = {
     email: "chi.pm214998@sis.hust.edu.vn",
     firstname: "Pham",
     lastname: "Mai Chi",
+    username: "Pham Mai Chi",
     phonenumber: "0912345678",
     career: "Sinh vien",
     password: "admin",
@@ -35,7 +36,11 @@ export const login = (payload: ILogin) => {
 };
 
 export const getProfile = () => {
-    const listKpi = getDataFromDb("profile") ? getDataFromDb("profile") : [];
+    const profile = getDataFromDb("profile") ? getDataFromDb("profile") : [];
 
-    return listKpi;
+    return profile;
+};
+
+export const updateProfile = (profile) => {
+    storeDataInDb("profile", profile);
 };

@@ -34,12 +34,6 @@ const items = [
         link: "/schedule",
     },
     {
-        key: "about",
-        icon: <FileOutlined />,
-        label: "Về chúng tôi",
-        link: "/about",
-    },
-    {
         key: "logout",
         icon: <LogoutOutlined />,
         label: "Đăng xuất",

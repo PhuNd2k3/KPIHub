@@ -137,7 +137,11 @@ export const Target = ({ target, updateListKpi }) => {
     );
 
     return (
-        <Flex vertical style={{ marginTop: 20 }}>
+        <Flex
+            id={`target-${target?.targetId}`}
+            vertical
+            style={{ marginTop: 20 }}
+        >
             <ConfigProvider
                 theme={{
                     components: {

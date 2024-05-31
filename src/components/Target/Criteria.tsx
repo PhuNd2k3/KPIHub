@@ -22,6 +22,7 @@ import { Task } from "./Task";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { addTask } from "../../services/kpi";
+import { getDataFromDb } from "../../services/localStorage";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Criteria = ({ targetId, criteria, updateListKpi }) => {
@@ -100,35 +101,10 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
         });
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        updateListKpi((prev: any) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return prev.map((kpi: any) => {
-                if (kpi?.targetId == targetId) {
-                    const newListCriteria = kpi?.criterias.map(
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        (criteria: any) => {
-                            if (criteria.criteriaId == criteria.criteriaId) {
-                                if (criteria?.tasks) {
-                                    return {
-                                        ...criteria,
-                                        tasks: [...criteria.tasks, task],
-                                    };
-                                }
-
-                                return {
-                                    ...criteria,
-                                    tasks: [task],
-                                };
-                            }
-                        }
-                    );
-
-                    return { ...kpi, criterias: newListCriteria };
-                }
-
-                return kpi;
-            });
-        });
+        const listKpi = getDataFromDb("listKpi")
+            ? getDataFromDb("listKpi")
+            : [];
+        updateListKpi(listKpi);
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

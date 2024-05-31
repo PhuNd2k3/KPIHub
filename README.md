@@ -1,8 +1,3 @@
-## Guide
-- Step 1: install packages: npm i or yarn add
-- Step 2: run app: npm run dev or yarn run dev
-
-
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -57,7 +57,7 @@ export const Header = () => {
                 <span>
                     <ClockCircleOutlined />
                 </span>
-                <span>2024-17-05</span>
+                <span>2024-05-31</span>
             </Flex>
         </Flex>
     );
@@ -109,13 +109,21 @@ export const Header = () => {
                 </div>
 
                 <div className="header__right__account">
-                    <div className="header__right__account__infor">
+                    <Link
+                        className="header__right__account__infor"
+                        to="/profile"
+                    >
                         <Avatar icon={<UserOutlined />} />
 
-                        <p style={{ fontWeight: "700", marginLeft: "10px" }}>
+                        <p
+                            style={{
+                                fontWeight: "700",
+                                marginLeft: "10px",
+                            }}
+                        >
                             {profile?.lastname}
                         </p>
-                    </div>
+                    </Link>
 
                     <div>
                         <p style={{ fontWeight: "600", color: "#C0BFBF" }}>
