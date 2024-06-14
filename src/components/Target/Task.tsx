@@ -154,6 +154,8 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
                         height: 40,
                         borderRadius: 8,
                         padding: "0 10px",
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
                     }}
                     key={task?.taskId}
                 >
@@ -169,6 +171,7 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
                         }}
                         style={{
                             color: "#FFFF",
+                            paddingRight: 6,
                         }}
                         gap={6}
                         align="center"
@@ -183,7 +186,14 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
                         >
                             <Slider
                                 style={{
-                                    width: 180,
+                                    width:
+                                        Math.ceil(
+                                            (task?.taskProgress /
+                                                task.objective) *
+                                                100
+                                        ) < 100
+                                            ? 180
+                                            : 173,
                                     height: "100%",
                                 }}
                                 defaultValue={task?.taskProgress}
@@ -211,11 +221,23 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
 
                         <Tag
                             style={{
+                                width: 74,
+                                textAlign: "center",
                                 borderRadius: 10,
                             }}
-                            color="#87d068"
+                            color={
+                                Math.ceil(
+                                    (task?.taskProgress / task.objective) * 100
+                                ) < 100
+                                    ? "#FFD800"
+                                    : "#5EDD46"
+                            }
                         >
-                            {task?.taskStatus}
+                            {Math.ceil(
+                                (task?.taskProgress / task.objective) * 100
+                            ) < 100
+                                ? "On Going"
+                                : "Done"}
                         </Tag>
 
                         <Popover content={content} trigger="click">
@@ -235,7 +257,13 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
                         footer={[
                             <Button onClick={handleCancel}>Hủy</Button>,
 
-                            <Button type="primary" onClick={handleOk}>
+                            <Button
+                                style={{
+                                    backgroundColor: "#6F65E8",
+                                    color: "#FFFF",
+                                }}
+                                onClick={handleOk}
+                            >
                                 Lưu
                             </Button>,
                         ]}
@@ -356,7 +384,13 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
                         footer={[
                             <Button onClick={handleCancel3}>Hủy</Button>,
 
-                            <Button type="primary" onClick={handleOk3}>
+                            <Button
+                                style={{
+                                    backgroundColor: "#6F65E8",
+                                    color: "#FFFF",
+                                }}
+                                onClick={handleOk3}
+                            >
                                 Lưu
                             </Button>,
                         ]}
@@ -379,7 +413,7 @@ export const Task = ({ targetId, criteriaId, task, updateListKpi }) => {
                                     Chỉ tiêu
                                 </Typography.Title>
                                 <span style={{ fontWeight: "bold" }}>
-                                    / {task?.objective} {task.unit}
+                                    / {task?.objective} {task?.unit}
                                 </span>
                             </Flex>
                         </Flex>

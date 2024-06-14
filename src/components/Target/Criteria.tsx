@@ -125,7 +125,17 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
             >
                 <Slider
                     disabled
-                    style={{ width: 180, height: "100%" }}
+                    style={{
+                        width:
+                            Math.ceil(
+                                (criteria?.criteriaProgress /
+                                    criteria?.objective) *
+                                    100
+                            ) < 100
+                                ? 180
+                                : 173,
+                        height: "100%",
+                    }}
                     defaultValue={Math.ceil(
                         (criteria?.criteriaProgress / criteria?.objective) * 100
                     )}
@@ -150,8 +160,25 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
                 </p>
             </Flex>
 
-            <Tag style={{ borderRadius: 10 }} color="#87d068">
-                {criteria?.criteriaStatus}
+            <Tag
+                style={{
+                    width: 74,
+                    textAlign: "center",
+                    borderRadius: 10,
+                }}
+                color={
+                    Math.ceil(
+                        (criteria?.criteriaProgress / criteria?.objective) * 100
+                    ) < 100
+                        ? "#FFD800"
+                        : "#5EDD46"
+                }
+            >
+                {Math.ceil(
+                    (criteria?.criteriaProgress / criteria?.objective) * 100
+                ) < 100
+                    ? "On Going"
+                    : "Done"}
             </Tag>
 
             <Popover content={content} trigger="click">
@@ -193,7 +220,14 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
                         key: `${criteria?.criteriaId}`,
                         label: `${criteria?.criteriaName}`,
                         children: (
-                            <Flex vertical gap={10}>
+                            <Flex
+                                vertical
+                                gap={10}
+                                style={{
+                                    marginRight: -16,
+                                    borderRadius: 0,
+                                }}
+                            >
                                 <Button
                                     size="small"
                                     style={{
@@ -221,7 +255,11 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
                     },
                 ]}
                 expandIconPosition={"start"}
-                style={{ color: "#FFFF" }}
+                style={{
+                    color: "#FFFF",
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                }}
                 expandIcon={({ isActive }) => (
                     <TagOutlined rotate={isActive ? 90 : 0} />
                 )}
@@ -235,7 +273,10 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
                 footer={[
                     <Button onClick={handleCancel}>Hủy</Button>,
 
-                    <Button type="primary" onClick={handleOk}>
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk}
+                    >
                         Lưu
                     </Button>,
                 ]}
@@ -325,7 +366,10 @@ export const Criteria = ({ targetId, criteria, updateListKpi }) => {
                 footer={[
                     <Button onClick={handleCancel2}>Hủy</Button>,
 
-                    <Button type="primary" onClick={handleOk2}>
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk2}
+                    >
                         Lưu
                     </Button>,
                 ]}

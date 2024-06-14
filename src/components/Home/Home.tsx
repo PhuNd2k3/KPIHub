@@ -7,15 +7,22 @@ import {
     Flex,
     Input,
     Modal,
+    Popover,
     Select,
     Typography,
 } from "antd";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+    PlusOutlined,
+    SearchOutlined,
+    FileExcelOutlined,
+} from "@ant-design/icons";
 
 import { Target } from "../Target";
 import { getListKpi, addTarget } from "../../services/kpi";
 import { TourGuidContext } from "../../providers/TourGuide";
 import { Import } from "../Import";
+import Export from "../Export/Export";
+import { storeDataInDb } from "../../services/localStorage";
 
 const { TextArea } = Input;
 
@@ -23,6 +30,8 @@ export const Home: React.FC = () => {
     const [listKpi, setListKpi] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
+    const [isModalOpen3, setIsModalOpen3] = useState(false);
+
     const [targetModal, setTargetModal] = useState({
         targetName: "",
         targetDes: "",
@@ -73,6 +82,20 @@ export const Home: React.FC = () => {
         setIsModalOpen2(false);
     };
 
+    // reset target
+    const showModal3 = () => {
+        setIsModalOpen3(true);
+    };
+
+    const handleOk3 = () => {
+        handleResetKpi();
+        setIsModalOpen3(false);
+    };
+
+    const handleCancel3 = () => {
+        setIsModalOpen3(false);
+    };
+
     const handleChange = (key: string) => {
         setFilterTarget(key);
     };
@@ -116,7 +139,6 @@ export const Home: React.FC = () => {
     };
 
     const handleClickScroll = (id: string) => {
-        console.log(id);
         const element = document.getElementById(`target-${id}`);
         if (element) {
             // 👇 Will scroll smoothly to the top of the next section
@@ -128,6 +150,20 @@ export const Home: React.FC = () => {
         }
     };
 
+    const content = (
+        <Flex vertical gap={4}>
+            <Export />
+
+            <Import updateListKpi={setListKpi} />
+        </Flex>
+    );
+
+    const handleResetKpi = () => {
+        storeDataInDb("listKpi", []);
+
+        setListKpi([]);
+    };
+
     useEffect(() => {
         handleGetListKpi();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -135,10 +171,10 @@ export const Home: React.FC = () => {
 
     return (
         <>
-            <h2>Thiết lập KPI</h2>
+            <h2>Trang chủ</h2>
             <Breadcrumb style={{ margin: "16px 0" }} separator=">">
                 <Breadcrumb.Item>KPIHub</Breadcrumb.Item>
-                <Breadcrumb.Item>Thiết lập KPI</Breadcrumb.Item>
+                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
             </Breadcrumb>
 
             <h3>Vừa xem</h3>
@@ -147,7 +183,7 @@ export const Home: React.FC = () => {
                 style={{ margin: "20px 0", width: "100%" }}
                 gap={20}
                 align="flex-end"
-                justify="space-between"
+                // justify="space-between"
             >
                 {listKpi.length > 0 ? (
                     listKpi.slice(0, 3).map((target) => (
@@ -201,8 +237,7 @@ export const Home: React.FC = () => {
 
                     <Select
                         defaultValue="Loại KPI"
-                        style={{ width: 190 }}
-                        style={{ height: "40px" }}
+                        style={{ width: 190, height: "40px" }}
                         onChange={handleChange}
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         options={optionTarget}
@@ -210,7 +245,30 @@ export const Home: React.FC = () => {
                 </Flex>
 
                 <Flex gap={8}>
-                    <Import updateListKpi={setListKpi} />
+                    {listKpi.length > 0 ? (
+                        <Button
+                            danger
+                            style={{ height: 40 }}
+                            onClick={() => showModal3()}
+                        >
+                            Xoá toàn bộ
+                        </Button>
+                    ) : (
+                        ""
+                    )}
+                    <Popover content={content} trigger="click">
+                        <Button
+                            icon={
+                                <FileExcelOutlined
+                                    ref={listRef[1]}
+                                    style={{ color: "#6F65E8" }}
+                                />
+                            }
+                            style={{
+                                height: 40,
+                            }}
+                        ></Button>
+                    </Popover>
 
                     <Button
                         type="primary"
@@ -236,7 +294,10 @@ export const Home: React.FC = () => {
                 footer={[
                     <Button onClick={handleCancel}>Hủy</Button>,
 
-                    <Button type="primary" onClick={handleOk}>
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk}
+                    >
                         Lưu
                     </Button>,
                 ]}
@@ -296,7 +357,10 @@ export const Home: React.FC = () => {
                 footer={[
                     <Button onClick={handleCancel2}>Hủy</Button>,
 
-                    <Button type="primary" onClick={handleOk2}>
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk2}
+                    >
                         Lưu
                     </Button>,
                 ]}
@@ -346,6 +410,25 @@ export const Home: React.FC = () => {
                         />
                     </div>
                 </Flex>
+            </Modal>
+
+            <Modal
+                title="Xóa danh sách mục tiêu"
+                open={isModalOpen3}
+                onOk={handleOk3}
+                onCancel={handleCancel3}
+                footer={[
+                    <Button onClick={handleCancel3}>Hủy</Button>,
+
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk3}
+                    >
+                        Có
+                    </Button>,
+                ]}
+            >
+                <p>Hành động này sẽ xóa danh sách mục tiêu của bạn</p>
             </Modal>
         </>
     );

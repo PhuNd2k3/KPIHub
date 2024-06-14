@@ -107,6 +107,16 @@ export const editTarget = (target) => {
     return target;
 };
 
+export const deleteTargetById = (targetId: string) => {
+    const listKpi = getDataFromDb("listKpi") ? getDataFromDb("listKpi") : [];
+
+    const newListKpi = listKpi.filter((target) => target.targetId !== targetId);
+
+    storeDataInDb("listKpi", newListKpi);
+
+    return newListKpi;
+};
+
 export const addCriteria = (targetId, criteria) => {
     const listKpi = getDataFromDb("listKpi") ? getDataFromDb("listKpi") : [];
 
@@ -194,6 +204,7 @@ export const addTask = (targetId, criteriaId, task) => {
         if (kpi?.targetId == targetId) {
             const newListCriteria = kpi?.criterias.map((criteria) => {
                 if (criteria?.criteriaId == criteriaId) {
+                    task.unit = criteria.unit;
                     if (criteria?.tasks) {
                         return {
                             ...criteria,

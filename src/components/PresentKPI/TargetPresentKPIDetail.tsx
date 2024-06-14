@@ -41,17 +41,31 @@ const columns: TableProps<DataType>["columns"] = [
         title: "Tình trạng",
         key: "criteriaStatus",
         dataIndex: "criteriaStatus",
-        render: (_, { criteriaStatus }) => (
+        render: (_, criteria) => (
             <>
                 {
                     <Tag
-                        color={"red"}
-                        key={criteriaStatus}
+                        color={
+                            Math.ceil(
+                                (criteria?.criteriaProgress /
+                                    criteria?.objective) *
+                                    100
+                            ) < 100
+                                ? "#FFD800"
+                                : "#5EDD46"
+                        }
+                        key={criteria.criteriaName}
                         style={{
+                            width: 50,
+                            textAlign: "center",
                             borderRadius: 10,
                         }}
                     >
-                        {criteriaStatus.toUpperCase()}
+                        {Math.ceil(
+                            (criteria?.criteriaProgress / criteria?.objective) *
+                                100
+                        )}
+                        %
                     </Tag>
                 }
             </>
@@ -77,7 +91,7 @@ export const TargetPresentKPIDetail = () => {
         <>
             <Breadcrumb style={{ margin: "16px 0" }} separator=">">
                 <Breadcrumb.Item>
-                    <Link to="/">
+                    <Link to="/kpi_present">
                         <span
                             style={{
                                 fontWeight: 500,

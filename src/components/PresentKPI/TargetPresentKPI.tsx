@@ -1,7 +1,8 @@
 import { Breadcrumb, Table, TableProps, Tag } from "antd";
 import { Link } from "react-router-dom";
 import { getListKpi } from "../../services/kpi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { TourGuidContext } from "../../providers/TourGuide";
 
 interface DataType {
     criterias: any;
@@ -20,7 +21,7 @@ const columns: TableProps<DataType>["columns"] = [
         render: (text, record) => (
             <Link
                 style={{ color: "#130D59", fontWeight: 400 }}
-                to={"/" + record?.targetId}
+                to={"/kpi_present/" + record?.targetId}
             >
                 {text}
             </Link>
@@ -42,18 +43,19 @@ const columns: TableProps<DataType>["columns"] = [
             let progress = 0;
             record?.criterias?.map((item) => {
                 progress +=
-                    Math.round(item.criteriaProgress / item.objective) *
-                    record.weight;
+                    (item.criteriaProgress / item.objective) * item.weight;
             });
             return (
                 <>
                     {
                         <Tag
-                            color={"red"}
                             key={record?.targetStatus}
                             style={{
+                                width: 50,
+                                textAlign: "center",
                                 borderRadius: 10,
                             }}
+                            color={progress < 100 ? "#FFD800" : "#5EDD46"}
                         >
                             {progress}%
                         </Tag>

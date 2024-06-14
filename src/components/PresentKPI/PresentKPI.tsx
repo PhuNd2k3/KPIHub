@@ -4,10 +4,11 @@ import {
     // ArrowDownOutlined,
     ArrowUpOutlined,
 } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { PieChart, DualChart } from "../Chart";
 import { getListKpi } from "../../services/kpi";
+import { TourGuidContext } from "../../providers/TourGuide";
 
 export const PresentKPI = () => {
     const {
@@ -29,6 +30,8 @@ export const PresentKPI = () => {
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
     };
+
+    const { listRefPresent } = useContext(TourGuidContext);
 
     return (
         <>
@@ -84,12 +87,18 @@ export const PresentKPI = () => {
                             borderRadius: borderRadiusLG,
                             width: "100%",
                         }}
+                        ref={listRefPresent[0]}
                     >
                         <Outlet />
                     </div>
                 </Flex>
 
-                <Flex vertical style={{ flex: 1 }} gap={8}>
+                <Flex
+                    vertical
+                    style={{ flex: 1 }}
+                    gap={8}
+                    ref={listRefPresent[1]}
+                >
                     <Flex style={{ width: "100%" }} gap={10}>
                         <Card
                             style={{
@@ -186,7 +195,7 @@ export const PresentKPI = () => {
                             borderRadius: 15,
                         }}
                     >
-                        <h3>Hiệu suất</h3>
+                        <h3 style={{ marginBottom: 20 }}>% KPI đạt được</h3>
 
                         <DualChart />
                     </Card>

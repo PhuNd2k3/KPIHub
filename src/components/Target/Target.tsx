@@ -6,6 +6,7 @@ import {
     Input,
     Modal,
     Popover,
+    Slider,
     Space,
     Tag,
     Typography,
@@ -15,7 +16,7 @@ import { MoreOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Criteria } from "./Criteria";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
-import { addCriteria } from "../../services/kpi";
+import { addCriteria, deleteTargetById } from "../../services/kpi";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Target = ({ target, updateListKpi }) => {
@@ -104,6 +105,13 @@ export const Target = ({ target, updateListKpi }) => {
 
     // const handleEditTarget = () => {};
 
+    const handleDeleteTargetById = () => {
+        console.log(target?.targetId);
+        const newListKpi = deleteTargetById(target?.targetId);
+
+        updateListKpi(newListKpi);
+    };
+
     const content = (
         <Flex vertical gap={4}>
             <Button onClick={showModal2}>
@@ -111,7 +119,7 @@ export const Target = ({ target, updateListKpi }) => {
             </Button>
 
             <Button>
-                <DeleteOutlined />
+                <DeleteOutlined onClick={() => handleDeleteTargetById()} />
             </Button>
         </Flex>
     );
@@ -124,10 +132,93 @@ export const Target = ({ target, updateListKpi }) => {
                 // If you don't want click extra trigger collapse, you can prevent this:
                 event.stopPropagation();
             }}
-            style={{ color: "#FFFF" }}
+            style={{ color: "#FFFF", paddingRight: 13 }}
+            gap={6}
+            align="center"
         >
-            <Tag style={{ borderRadius: 10 }} color="#87d068">
-                {target?.targetStatus}
+            <Flex
+                align="center"
+                gap={10}
+                style={{ height: "100%", color: "black" }}
+            >
+                <Slider
+                    disabled
+                    style={{
+                        width:
+                            target?.criterias?.reduce((accu, item) => {
+                                return (accu +=
+                                    (item.criteriaProgress / item.objective) *
+                                    item?.weight);
+                            }, 0) < 100
+                                ? 180
+                                : 173,
+                        height: "100%",
+                    }}
+                    defaultValue={target?.criterias?.reduce((accu, item) => {
+                        return (accu +=
+                            (item.criteriaProgress / item.objective) *
+                            item?.weight);
+                    }, 0)}
+                    value={target?.criterias?.reduce((accu, item) => {
+                        return (accu +=
+                            (item.criteriaProgress / item.objective) *
+                            item?.weight);
+                    }, 0)}
+                    styles={{
+                        track: {
+                            background: "transparent",
+                        },
+                        tracks: {
+                            background:
+                                target?.criterias?.reduce((accu, item) => {
+                                    console.log(accu);
+                                    return (accu +=
+                                        (item.criteriaProgress /
+                                            item.objective) *
+                                        item?.weight);
+                                }, 0) < 100
+                                    ? "#FFD800"
+                                    : "#5EDD46",
+                        },
+                    }}
+                />
+
+                <p style={{ color: "#FFFF" }}>
+                    {target?.criterias?.reduce((accu, item) => {
+                        console.log(accu);
+                        return (accu +=
+                            (item.criteriaProgress / item.objective) *
+                            item?.weight);
+                    }, 0)}
+                    %
+                </p>
+            </Flex>
+
+            <Tag
+                style={{
+                    width: 74,
+                    textAlign: "center",
+                    borderRadius: 10,
+                    marginRight: 14,
+                }}
+                color={
+                    target?.criterias?.reduce((accu, item) => {
+                        console.log(accu);
+                        return (accu +=
+                            (item.criteriaProgress / item.objective) *
+                            item?.weight);
+                    }, 0) < 100
+                        ? "#FFD800"
+                        : "#5EDD46"
+                }
+            >
+                {target?.criterias?.reduce((accu, item) => {
+                    return (accu +=
+                        (item.criteriaProgress / item.objective) *
+                        item?.weight);
+                }, 0) < 100
+                    ? "On Going"
+                    : "Done"}
             </Tag>
 
             <Popover content={content} trigger="click">
@@ -195,7 +286,6 @@ export const Target = ({ target, updateListKpi }) => {
                                 extra: genExtra(target),
                             },
                         ]}
-                        expandIconPosition={"end"}
                         style={{ color: "#FFFF" }}
                     />
                 </Space>
@@ -209,7 +299,10 @@ export const Target = ({ target, updateListKpi }) => {
                 footer={[
                     <Button onClick={handleCancel}>Hủy</Button>,
 
-                    <Button type="primary" onClick={handleOk}>
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk}
+                    >
                         Lưu
                     </Button>,
                 ]}
@@ -301,7 +394,10 @@ export const Target = ({ target, updateListKpi }) => {
                 footer={[
                     <Button onClick={handleCancel2}>Hủy</Button>,
 
-                    <Button type="primary" onClick={handleOk2}>
+                    <Button
+                        style={{ backgroundColor: "#6F65E8", color: "#FFFF" }}
+                        onClick={handleOk2}
+                    >
                         Lưu
                     </Button>,
                 ]}

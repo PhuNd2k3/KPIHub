@@ -1,7 +1,7 @@
 import {
     AreaChartOutlined,
     FileOutlined,
-    EditOutlined,
+    HomeOutlined,
     // TeamOutlined,
     ScheduleOutlined,
     LogoutOutlined,
@@ -16,15 +16,15 @@ const { Sider } = Layout;
 
 const items = [
     {
-        key: "dashboard",
-        icon: <AreaChartOutlined />,
-        label: "KPI hiện tại ",
+        key: "home",
+        icon: <HomeOutlined />,
+        label: "Trang chủ ",
         link: "/",
     },
     {
-        key: "home",
-        icon: <EditOutlined />, 
-        label: "Thiết lập KPI ",
+        key: "dashboard",
+        icon: <AreaChartOutlined />,
+        label: "KPI hiện tại ",
         link: "/kpi_present",
     },
     {
@@ -57,9 +57,9 @@ export const Navbar = () => {
                             to={item.link}
                             ref={
                                 item.key === "dashboard"
-                                    ? listRef[1]
+                                    ? listRef[2]
                                     : item.key === "schedule"
-                                      ? listRef[2]
+                                      ? listRef[3]
                                       : null
                             }
                         >
